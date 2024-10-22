@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
@@ -8,10 +8,10 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 class Concert(models.Model):
-    # concert_name
-    # duration
-    # city
-    # date
+    concert_name = models.CharField(max_length=255)
+    duration = models.IntegerField()
+    city = models.CharField(max_length=255)
+    date = models.DateField(default=timezone.now)
 
     def __str__(self):
         return self.concert_name
@@ -41,24 +41,24 @@ class ConcertAttending(models.Model):
 
 
 class Photo(models.Model):
-    # id
-    # pic_url
-    # event_country
-    # event_state
-    # event_city
-    # event_date
+    id = models.IntegerField(primary_key=True)  # Primary Key
+    pic_url = models.CharField(max_length=1000)  # URL of the picture
+    event_country = models.CharField(max_length=255)  # Country of the event
+    event_state = models.CharField(max_length=255)  # State of the event
+    event_city = models.CharField(max_length=255)  # City of the event
+    event_date = models.DateField(default=timezone.now)  # Date of the event
 
     class Meta:
-        managed = False
+        managed = False  # You mentioned 'managed = False', meaning Django won't manage this model's database table
 
     def __str__(self):
         return self.pic_url
 
 
 class Song(models.Model):
-    # id
-    # title
-    # lyrics
+    id = models.IntegerField(primary_key=True)
+    title = models.CharField(max_length=255)
+    lyrics = models.TextField()
 
     class Meta:
         managed = False
